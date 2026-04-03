@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Support – V6</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg:           #f8f5ee;
+  --container-01: #ffffff;
+  --container-02: rgba(255,255,255,0.46);
+  --border:       rgba(0,0,0,0.11);
+  --border-input: rgba(0,0,0,0.47);
+  --text-01:      #1f1f1f;
+  --text-02:      rgba(0,0,0,0.62);
+  --heading-color:#213343;
+  --orange:       #ff4800;
+  --orange-alt:   #ff5c35;
+  --green-badge:  #b9cdbe;
+  --lavender:     #d6c2d9;
+  --badge-border: rgba(255,255,255,0.08);
+  --cyan:         #E0F7FA;
+  --font:         'Lexend Deca', sans-serif;
+}
+
+body {
+  background: var(--bg);
+  font-family: var(--font);
+  color: var(--text-01);
+  min-height: 100vh;
+}
+
+/* ── PAGE ── */
+.page {
+  width: 1080px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  padding-bottom: 96px;
+}
+
+/* ── HEADER ── */
+.header-container {
+  width: 692px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 24px;
+}
+.page-heading {
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 44px;
+  color: var(--heading-color);
+  text-align: center;
+  width: 100%;
+}
+
+/* ── BODY ROW ── */
+.body-row {
+  width: 100%;
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+/* ── LEFT COL ── */
+.left-col {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ── FLAT TEXT CARDS ── */
+.text-item {
+  background: var(--container-01);
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 16px;
+  line-height: 28px;
+  font-weight: 400;
+  color: var(--text-01);
+  transition: background 0.15s ease;
+}
+.tier-free    { color: var(--orange);     font-weight: 500; }
+.tier-starter { color: var(--orange-alt); font-weight: 500; }
+.tier-pro     { color: var(--orange-alt); font-weight: 500; }
+.text-item a  {
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: var(--text-01);
+  color: var(--text-01);
+  cursor: pointer;
+}
+
+/* ── PRO CARD ── */
+.pro-card {
+  background: var(--container-01);
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: background 0.15s ease;
+}
+.pro-card-heading {
+  font-size: 16px;
+  line-height: 28px;
+  font-weight: 400;
+  color: var(--text-01);
+}
+
+/* ── PHONE SECTION ── */
+.phone-section { display: flex; flex-direction: column; gap: 12px; }
+.phone-label {
+  font-size: 14px; font-weight: 600; line-height: 20px;
+  letter-spacing: 0.1px; color: var(--text-01); margin-bottom: 8px;
+}
+.phone-row { display: flex; align-items: flex-end; gap: 16px; }
+
+.select-wrap { position: relative; flex-shrink: 0; }
+.country-select {
+  height: 40px;
+  background: var(--container-02);
+  border: 1px solid var(--border-input);
+  border-radius: 4px;
+  padding: 0 40px 0 16px;
+  font-size: 16px; font-family: var(--font); font-weight: 300;
+  color: var(--text-01); line-height: 28px;
+  appearance: none; -webkit-appearance: none; cursor: pointer;
+}
+.select-arrow {
+  position: absolute; right: 8px; top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none; width: 24px; height: 24px;
+}
+
+.phone-number-group { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.phone-number {
+  font-size: 16px; font-weight: 600; line-height: 28px;
+  color: var(--text-01); white-space: nowrap;
+}
+.ext-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 4px; padding: 4px 8px;
+  font-size: 14px; font-weight: 600; line-height: 20px;
+  color: var(--text-01); white-space: nowrap;
+  border: 1px solid var(--badge-border);
+}
+.ext-badge.green    { background: var(--green-badge); }
+.ext-badge.lavender { background: var(--lavender); }
+
+.phone-note {
+  font-size: 12px; font-weight: 500; line-height: 20px;
+  color: var(--text-02); margin-top: 8px;
+}
+
+/* ── PREMIUM SUBCARD ── */
+.premium-card {
+  background: var(--bg);
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  display: flex; flex-direction: column; gap: 12px;
+  transition: background 0.15s ease;
+}
+.premium-title {
+  font-size: 16px; font-weight: 600; line-height: 28px;
+  color: var(--orange); white-space: nowrap;
+}
+.premium-line-row {
+  display: flex; align-items: center;
+  justify-content: space-between; gap: 8px; flex-wrap: nowrap;
+}
+.premium-line-label {
+  font-size: 14px; font-weight: 600; line-height: 20px;
+  color: var(--text-01); white-space: nowrap;
+}
+.premium-line-number {
+  font-size: 16px; font-weight: 600; line-height: 28px;
+  color: var(--text-01); white-space: nowrap;
+}
+.premium-line-note {
+  font-size: 12px; font-weight: 500; line-height: 20px;
+  color: var(--text-02); white-space: nowrap;
+}
+.premium-desc {
+  font-size: 14px; font-weight: 300; line-height: 22px; color: var(--text-02);
+}
+.premium-desc a {
+  font-weight: 600; text-decoration: underline;
+  text-decoration-color: var(--text-02); color: var(--text-02); cursor: pointer;
+}
+
+/* ── RIGHT COL ── */
+.right-col {
+  width: 500px; flex-shrink: 0; flex-grow: 0;
+  display: flex; flex-direction: column; gap: 16px;
+}
+
+/* ── TABLE ── */
+.channel-table {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+}
+.channel-table col.col-label { width: 113px; }
+.channel-table th,
+.channel-table td {
+  padding: 10px; border: none;
+  font-size: 14px; font-family: var(--font);
+  color: var(--text-01); vertical-align: middle;
+  background: var(--container-01);
+  transition: background 0.15s ease;
+}
+.channel-table thead th {
+  background: rgba(255,255,255,0.46);
+  font-weight: 600; line-height: 20px;
+  letter-spacing: 0.1px; text-align: center;
+}
+.channel-table thead th:first-child { text-align: left; }
+.channel-table tbody td:first-child {
+  font-weight: 300; line-height: 22px; text-align: left;
+}
+.channel-table tbody td:not(:first-child) {
+  text-align: center; height: 44px;
+}
+.channel-table tbody tr + tr td {
+  box-shadow: inset 0 1px 0 rgba(0,0,0,0.11);
+}
+.channel-table th.cell-hovered,
+.channel-table td.cell-hovered { background: var(--cyan) !important; }
+.check-circle { width: 24px; height: 24px; }
+
+/* ── CARD HIGHLIGHTS ── */
+.text-item.is-highlighted   { background: var(--cyan); }
+.pro-card.is-highlighted    { background: var(--cyan); }
+.premium-card.is-highlighted { background: var(--cyan); }
+
+/* ── TOOLTIPS ── */
+.has-tooltip { cursor: pointer; }
+.has-tooltip.no-pointer { cursor: default; }
+#global-tooltip {
+  position: fixed;
+  background: #1f1f1f; color: #fff;
+  font-family: var(--font); font-size: 13px; font-weight: 500; line-height: 20px;
+  white-space: nowrap; padding: 6px 12px; border-radius: 6px;
+  pointer-events: none; opacity: 0; transition: opacity 0.12s ease;
+  z-index: 9998; transform: translateX(-50%);
+}
+#global-tooltip.visible { opacity: 1; }
+#global-tooltip::after {
+  content: ''; position: absolute; top: 100%; left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent; border-top-color: #1f1f1f;
+}
+
+/* ── UTILITY LINKS ── */
+.utility-links { display: flex; flex-direction: column; gap: 16px; }
+.utility-line {
+  font-size: 14px; font-weight: 300; line-height: 22px;
+  color: rgba(0,0,0,0.62);
+}
+.utility-line a {
+  font-weight: 600; text-decoration: underline;
+  text-decoration-color: rgba(0,0,0,0.62);
+  color: rgba(0,0,0,0.62); cursor: pointer;
+}
+
+/* ════════════════════════════════
+   TABLET  600px – 1079px
+════════════════════════════════ */
+@media (min-width: 600px) and (max-width: 1079px) {
+  .page { width: 100%; padding-left: 40px; padding-right: 40px; }
+  .header-container { width: 100%; }
+  .body-row { flex-direction: column; gap: 0; }
+  .left-col { width: 100%; flex: none; gap: 8px; margin-bottom: 16px; }
+  .right-col { width: 100%; flex-shrink: 1; flex-grow: 1; }
+  .channel-table { width: 100%; }
+  .phone-row { flex-direction: row; align-items: center; flex-wrap: nowrap; gap: 16px; }
+  .country-select { width: 250px; }
+  .select-wrap    { width: 250px; }
+  .phone-note { margin-top: 0; white-space: nowrap; }
+  .premium-line-row { flex-wrap: nowrap; gap: 8px; }
+  /* Hide mobile-only on tablet */
+  .mob-only { display: none !important; }
+}
+
+/* ════════════════════════════════
+   MOBILE  ≤ 599px
+════════════════════════════════ */
+
+/* Mobile-only elements are hidden everywhere above 599px */
+.mob-only { display: none; }
+
+@media (max-width: 599px) {
+
+  /* Page */
+  .page { width: 100%; padding-left: 16px; padding-right: 16px; gap: 24px; }
+  .header-container { width: 100%; }
+
+  /* Layout: single column */
+  .body-row { flex-direction: column; gap: 0; }
+  .left-col { width: 100%; flex: none; gap: 8px; margin-bottom: 16px; }
+  .right-col { width: 100%; flex-shrink: 1; flex-grow: 1; gap: 16px; }
+
+  /* Hide desktop table and utility links */
+  .channel-table { display: none; }
+  .utility-links  { display: none; }
+
+  /* Hide desktop number elements, show mobile alternatives */
+  .desk-only { display: none; }
+  .mob-only  { display: flex; }
+
+  /* Phone select: full width */
+  .phone-row { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .select-wrap, .country-select { width: 100%; }
+
+  /* Premium dedicated line: stack label above button row */
+  .premium-line-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+
+  /* Orange call button */
+  .mob-btn {
+    background: #ff4800; color: #fff; border: none;
+    border-radius: 8px; padding: 8px 16px;
+    font-family: var(--font); font-size: 14px; font-weight: 500;
+    line-height: 24px; white-space: nowrap; cursor: default; flex-shrink: 0;
+  }
+
+  /* Mobile number row: button + badge + note inline */
+  .mob-num-row {
+    display: flex; align-items: center; gap: 8px; width: 100%; flex-wrap: nowrap;
+  }
+  .mob-num-note {
+    font-size: 12px; font-weight: 500; line-height: 20px;
+    color: rgba(0,0,0,0.62); white-space: nowrap;
+  }
+
+  /* Mobile plan card */
+  .mob-plan-card {
+    background: var(--container-01);
+    border: 1px solid var(--border); border-radius: 8px; padding: 16px;
+    display: flex; flex-direction: column; gap: 12px; width: 100%;
+  }
+  .mob-plan-heading {
+    font-size: 18px; font-weight: 600; line-height: 28px;
+    letter-spacing: 0.1px; color: var(--text-01);
+  }
+  .mob-divider { height: 1px; background: #dbe4ed; width: 100%; }
+  .mob-tier-block { display: flex; flex-direction: column; gap: 8px; }
+  .mob-tier-name {
+    font-size: 16px; font-weight: 600; line-height: 28px;
+    letter-spacing: 0.1px; color: var(--text-01);
+  }
+  .mob-chips { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .mob-chip {
+    display: inline-flex; align-items: center; justify-content: center;
+    background: var(--bg); border: 1px solid var(--border); border-radius: 4px;
+    padding: 4px 8px; font-size: 14px; font-weight: 600; line-height: 20px;
+    letter-spacing: 0.1px; color: var(--text-01); white-space: nowrap;
+  }
+
+  /* Mobile utility links */
+  .mob-utility { display: flex; flex-direction: column; gap: 16px; }
+}
+
+/* ── PROTOTYPE MODAL ── */
+.proto-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(31,31,31,0.45);
+  backdrop-filter: blur(2px); z-index: 9999;
+  align-items: center; justify-content: center;
+}
+.proto-overlay.open { display: flex; }
+.proto-modal {
+  background: #fff; border-radius: 16px; padding: 28px 28px 24px;
+  width: 100%; max-width: 400px; margin: 20px;
+  box-shadow: 0 8px 40px rgba(31,31,31,0.18);
+  display: flex; flex-direction: column; gap: 14px;
+  animation: pop-in 0.18s ease;
+}
+@keyframes pop-in {
+  from { opacity:0; transform:translateY(8px) scale(0.97); }
+  to   { opacity:1; transform:translateY(0) scale(1); }
+}
+.proto-modal-icon { width:40px; height:40px; background:#fff4f0; border-radius:50%; display:flex; align-items:center; justify-content:center; }
+.proto-modal-icon svg { width:20px; height:20px; }
+.proto-modal-title { font-weight:500; font-size:17px; line-height:24px; color:#1f1f1f; }
+.proto-modal-body  { font-weight:300; font-size:14px; line-height:22px; color:#555; }
+.proto-modal-footer { display:flex; justify-content:flex-end; padding-top:4px; }
+.proto-modal-btn {
+  background:#1f1f1f; color:#fff; border:none; border-radius:8px;
+  padding:9px 22px; font-family:var(--font); font-size:14px; font-weight:500;
+  cursor:pointer;
+}
+.proto-modal-btn:hover { background:#3a3a3a; }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header-container">
+    <h1 class="page-heading">Contact Support</h1>
+  </div>
+
+  <!-- BODY ROW -->
+  <div class="body-row">
+
+    <!-- LEFT COL -->
+    <div class="left-col">
+
+      <div class="text-item" id="card-free">
+        <span class="tier-free">Free tools users</span> and all View-only Seats users are supported by the <a href="#">Community</a> forum.
+      </div>
+
+      <div class="text-item" id="card-starter">
+        <span class="tier-starter">Starter</span> accounts are supported by <a href="#">Community</a>, <a href="#">email</a>&nbsp;&nbsp;&amp;&nbsp;<a href="#">chat.</a>
+      </div>
+
+      <div class="pro-card" id="card-pro">
+        <p class="pro-card-heading">
+          <span class="tier-pro">Professional &amp; Enterprise</span> accounts have full support access, including direct phone support.
+        </p>
+
+        <div class="phone-section">
+          <div>
+            <p class="phone-label">Phone number for:</p>
+            <div class="phone-row">
+              <div class="select-wrap">
+                <select class="country-select" id="country-select">
+                  <option value="us">United States</option>
+                  <option value="au">Australia</option>
+                  <option value="at">Austria</option>
+                  <option value="be">Belgium</option>
+                  <option value="br">Brazil</option>
+                  <option value="ca">Canada</option>
+                  <option value="cl">Chile</option>
+                  <option value="co">Colombia</option>
+                  <option value="dk">Denmark</option>
+                  <option value="fi">Finland</option>
+                  <option value="fr">France</option>
+                  <option value="de">Germany</option>
+                  <option value="hk">Hong Kong</option>
+                  <option value="in">India</option>
+                  <option value="id">Indonesia</option>
+                  <option value="ie">Ireland</option>
+                  <option value="il">Israel</option>
+                  <option value="it">Italy</option>
+                  <option value="jp">Japan</option>
+                  <option value="lu">Luxembourg</option>
+                  <option value="my">Malaysia</option>
+                  <option value="mx">Mexico</option>
+                  <option value="nl">Netherlands</option>
+                  <option value="nz">New Zealand</option>
+                  <option value="no">Norway</option>
+                  <option value="pt">Portugal</option>
+                  <option value="sg">Singapore</option>
+                  <option value="za">South Africa</option>
+                  <option value="es">Spain</option>
+                  <option value="se">Sweden</option>
+                  <option value="ch">Switzerland</option>
+                  <option value="ae">UAE</option>
+                  <option value="gb">United Kingdom</option>
+                </select>
+                <svg class="select-arrow" viewBox="0 0 24 24" fill="none">
+                  <path d="M6 9L12 15L18 9" stroke="#1f1f1f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <!-- Desktop/tablet: number text + badge -->
+              <div class="phone-number-group desk-only">
+                <p class="phone-number" id="pro-number">1-888-HUBSPOT</p>
+                <span class="ext-badge green">Ext. 3</span>
+              </div>
+              <!-- Mobile: orange button + badge + note -->
+              <div class="mob-num-row mob-only">
+                <button class="mob-btn" id="pro-number-mob">1-888-482-7768</button>
+                <span class="ext-badge green">Ext. 3</span>
+                <p class="mob-num-note" id="pro-note-mob">Toll free in the US</p>
+              </div>
+            </div>
+            <p class="phone-note desk-only" id="pro-note">Toll free in the US</p>
+          </div>
+
+          <!-- Premium subcard -->
+          <div class="premium-card" id="card-premium">
+            <p class="premium-title">Premium Support</p>
+            <div class="premium-line-row">
+              <p class="premium-line-label">Dedicated Line</p>
+              <!-- Desktop/tablet -->
+              <div class="phone-number-group desk-only">
+                <p class="premium-line-number" id="premium-number">1-888-482-7768</p>
+                <span class="ext-badge lavender">Ext. 4</span>
+              </div>
+              <p class="premium-line-note desk-only" id="premium-note">Toll free in the US</p>
+              <!-- Mobile: orange button + badge + note -->
+              <div class="mob-num-row mob-only">
+                <button class="mob-btn" id="premium-number-mob">1-888-482-7768</button>
+                <span class="ext-badge lavender">Ext. 4</span>
+                <p class="mob-num-note" id="premium-note-mob">Toll free in the US</p>
+              </div>
+            </div>
+            <p class="premium-desc">
+              Get a dedicated team, priority routing, and faster response times — available on top of your Professional or Enterprise plan. <a href="#">See what's included →</a>
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+    <!-- end left col -->
+
+    <!-- RIGHT COL -->
+    <div class="right-col">
+
+      <!-- Desktop/tablet: comparison table -->
+      <table class="channel-table">
+        <colgroup>
+          <col class="col-label">
+          <col class="col-data" data-col="1">
+          <col class="col-data" data-col="2">
+          <col class="col-data" data-col="3">
+          <col class="col-data" data-col="4">
+        </colgroup>
+        <thead>
+          <tr>
+            <th>Support</th>
+            <th data-col="1">Free</th>
+            <th data-col="2">Starter</th>
+            <th data-col="3">Professional &amp; Enterprise</th>
+            <th data-col="4">Premium</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Community</td>
+            <td><span class="has-tooltip" data-tip="Visit Community →"><svg class="check-circle" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#2d7a4f"/><path d="M7.5 12.5l3 3 6-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+            <td><span class="has-tooltip" data-tip="Visit Community →"><svg class="check-circle" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#2d7a4f"/><path d="M7.5 12.5l3 3 6-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+            <td><span class="has-tooltip" data-tip="Visit Community →"><svg class="check-circle" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#2d7a4f"/><path d="M7.5 12.5l3 3 6-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+            <td><span class="has-tooltip" data-tip="Visit Community →"><svg class="check-circle" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#2d7a4f"/><path d="M7.5 12.5l3 3 6-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+          </tr>
+          <tr>
+            <td>Chat</td>
+            <td></td>
+            <td><span class="has-tooltip" data-tip="Start chat →"><svg class="check-circle" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#2d7a4f"/><path d="M7.5 12.5l3 3 6-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+            <td><span class="has-tooltip" data-tip="Start chat →"><svg class="check-circle" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#2d7a4f"/><path d="M7.5 12.5l3 3 6-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+            <td><span class="has-tooltip" data-tip="Start chat →"><svg class="check-circle" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#2d7a4f"/><path d="M7.5 12.5l3 3 6-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+          </tr>
+          <tr>
+            <td>Email</td>
+            <td></td>
+            <td><span class="has-tooltip" data-tip="Send email →"><svg class="check-circle" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#2d7a4f"/><path d="M7.5 12.5l3 3 6-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+            <td><span class="has-tooltip" data-tip="Send email →"><svg class="check-circle" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#2d7a4f"/><path d="M7.5 12.5l3 3 6-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+            <td><span class="has-tooltip" data-tip="Send email →"><svg class="check-circle" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#2d7a4f"/><path d="M7.5 12.5l3 3 6-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+          </tr>
+          <tr>
+            <td>Phone</td>
+            <td></td>
+            <td></td>
+            <td><span class="has-tooltip no-pointer" id="tt-pro-ent" data-tip="Local number + Ext. 3"><svg class="check-circle" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#2d7a4f"/><path d="M7.5 12.5l3 3 6-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+            <td><span class="has-tooltip no-pointer" id="tt-premium" data-tip="Local number + Ext. 3"><svg class="check-circle" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#2d7a4f"/><path d="M7.5 12.5l3 3 6-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+          </tr>
+          <tr>
+            <td>Dedicated line</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><span class="has-tooltip no-pointer" id="tt-dedicated" data-tip="Local number + Ext. 4"><svg class="check-circle" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#2d7a4f"/><path d="M7.5 12.5l3 3 6-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Desktop/tablet: utility links -->
+      <div class="utility-links">
+        <p class="utility-line">⚡️ Have more than one HubSpot product? Your support level is based on your highest plan. <a href="#">Learn more →</a></p>
+        <p class="utility-line">📅 Check support availability: <a href="#">Support Hours &amp; Holidays →</a></p>
+        <p class="utility-line">💻 Not sure what plan you're on? <a href="#">View your subscription →</a></p>
+        <p class="utility-line">👤 Having trouble logging in? <a href="#">Try these troubleshooting steps →</a></p>
+      </div>
+
+      <!-- MOBILE ONLY: plan card replaces table -->
+      <div class="mob-plan-card mob-only">
+        <p class="mob-plan-heading">Not sure what support you have access to?</p>
+        <div class="mob-divider"></div>
+        <div class="mob-tier-block">
+          <p class="mob-tier-name">Free Plan</p>
+          <div class="mob-chips">
+            <span class="mob-chip">Community</span>
+          </div>
+        </div>
+        <div class="mob-divider"></div>
+        <div class="mob-tier-block">
+          <p class="mob-tier-name">Starter Plan</p>
+          <div class="mob-chips">
+            <span class="mob-chip">Community</span>
+            <span class="mob-chip">Email</span>
+            <span class="mob-chip">Chat</span>
+          </div>
+        </div>
+        <div class="mob-divider"></div>
+        <div class="mob-tier-block">
+          <p class="mob-tier-name">Professional &amp; Enterprise Plan</p>
+          <div class="mob-chips">
+            <span class="mob-chip">Community</span>
+            <span class="mob-chip">Email</span>
+            <span class="mob-chip">Chat</span>
+            <span class="mob-chip">Phone</span>
+          </div>
+        </div>
+        <div class="mob-divider"></div>
+        <div class="mob-tier-block">
+          <p class="mob-tier-name">Premium Plan</p>
+          <div class="mob-chips">
+            <span class="mob-chip">Community</span>
+            <span class="mob-chip">Email</span>
+            <span class="mob-chip">Chat</span>
+            <span class="mob-chip">Phone</span>
+            <span class="mob-chip">Dedicated phone line</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- MOBILE ONLY: utility links below plan card -->
+      <div class="mob-utility mob-only">
+        <p class="utility-line">⚡️ Have more than one HubSpot product? Your support level is based on your highest plan. <a href="#">Learn more →</a></p>
+        <p class="utility-line">📅 Check support availability: <a href="#">Support Hours &amp; Holidays →</a></p>
+        <p class="utility-line">💻 Not sure what plan you're on? <a href="#">View your subscription →</a></p>
+        <p class="utility-line">👤 Having trouble logging in? <a href="#">Try these troubleshooting steps →</a></p>
+      </div>
+
+    </div>
+    <!-- end right col -->
+
+  </div>
+</div>
+
+<!-- PROTOTYPE MODAL -->
+<div class="proto-overlay" id="proto-overlay" role="dialog" aria-modal="true" aria-labelledby="proto-title">
+  <div class="proto-modal">
+    <div class="proto-modal-icon">
+      <svg viewBox="0 0 20 20" fill="none"><path d="M10 2C5.58 2 2 5.58 2 10s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm.75 12h-1.5V9.25h1.5V14zm0-6.25h-1.5v-1.5h1.5v1.5z" fill="#FF4800"/></svg>
+    </div>
+    <p class="proto-modal-title" id="proto-title">This is a prototype</p>
+    <p class="proto-modal-body">You're viewing a prototype. Links and navigation are not active.</p>
+    <div class="proto-modal-footer">
+      <button class="proto-modal-btn" id="proto-close">Ok</button>
+    </div>
+  </div>
+</div>
+
+<!-- GLOBAL TOOLTIP -->
+<div id="global-tooltip"></div>
+
+<script>
+  /* ── PHONE DATA ── */
+  const phones = {
+    us:{pro:'1-888-HUBSPOT',    premium:'1-888-482-7768',note:'Toll free in the US',   premNote:'Toll free in the US'},
+    ca:{pro:'1-888-HUBSPOT',    premium:'1-888-482-7768',note:'Toll free in Canada',    premNote:'Toll free in Canada'},
+    gb:{pro:'+44 800 032 6560', premium:'+44 800 032 6560',note:'Carrier rates may apply',premNote:'Carrier rates may apply'},
+    au:{pro:'1-800-896-938',    premium:'1-800-896-938',   note:'Carrier rates may apply',premNote:'Carrier rates may apply'},
+    nz:{pro:'0800-171-871',     premium:'0800-171-871',    note:'Carrier rates may apply',premNote:'Carrier rates may apply'},
+    de:{pro:'+49 800 000 6982', premium:'+49 800 000 6982',note:'Carrier rates may apply',premNote:'Carrier rates may apply'},
+    fr:{pro:'+33 800 940 692',  premium:'+33 800 940 692', note:'Carrier rates may apply',premNote:'Carrier rates may apply'},
+    nl:{pro:'+31 800 020 2202', premium:'+31 800 020 2202',note:'Carrier rates may apply',premNote:'Carrier rates may apply'},
+    ie:{pro:'+353 1800 719 566',premium:'+353 1800 719 566',note:'Carrier rates may apply',premNote:'Carrier rates may apply'},
+    it:{pro:'+39 800 693 076',  premium:'+39 800 693 076', note:'Carrier rates may apply',premNote:'Carrier rates may apply'},
+    es:{pro:'+34 900 838 597',  premium:'+34 900 838 597', note:'Carrier rates may apply',premNote:'Carrier rates may apply'},
+    pt:{pro:'+351 800 780 764', premium:'+351 800 780 764',note:'Carrier rates may apply',premNote:'Carrier rates may apply'},
+    be:{pro:'+32 800 761 45',   premium:'+32 800 761 45',  note:'Carrier rates may apply',premNote:'Carrier rates may apply'},
+    at:{pro:'+43 800 802 561',  premium:'+43 800 802 561', note:'Carrier rates may apply',premNote:'Carrier rates may apply'},
+    ch:{pro:'+41 800 000 401',  premium:'+41 800 000 401', note:'Carrier rates may apply',premNote:'Carrier rates may apply'},
+    se:{pro:'+46 200 883 185',  premium:'+46 200 883 185', note:'Carrier rates may apply',premNote:'Carrier rates may apply'},
+    no:{pro:'+47 800 16 174',   premium:'+47 800 16 174',  note:'Carrier rates may apply',premNote:'Carrier rates may apply'},
+    dk:{pro:'+45 80 82 00 10',  premium:'+45 80 82 00 10', note:'Carrier rates may apply',premNote:'Carrier rates may apply'},
+    fi:{pro:'+358 800 912 683', premium:'+358 800 912 683',note:'Carrier rates may apply',premNote:'Carrier rates may apply'},
+    lu:{pro:'+352 800 277 56',  premium:'+352 800 277 56', note:'Carrier rates may apply',premNote:'Carrier rates may apply'},
+    br:{pro:'0800 047 4744',    premium:'0800 047 4744',   note:'Carrier rates may apply',premNote:'Carrier rates may apply'},
+    mx:{pro:'800-461-0524',     premium:'800-461-0524',    note:'Carrier rates may apply',premNote:'Carrier rates may apply'},
+    co:{pro:'01800-952-1562',   premium:'01800-952-1562',  note:'Carrier rates may apply',premNote:'Carrier rates may apply'},
+    cl:{pro:'1230-020-9626',    premium:'1230-020-9626',   note:'Carrier rates may apply',premNote:'Carrier rates may apply'},
+    jp:{pro:'0120-700-779',     premium:'0120-700-779',    note:'Carrier rates may apply',premNote:'Carrier rates may apply'},
+    sg:{pro:'800 492 1669',     premium:'800 492 1669',    note:'Carrier rates may apply',premNote:'Carrier rates may apply'},
+    hk:{pro:'800 960 254',      premium:'800 960 254',     note:'Carrier rates may apply',premNote:'Carrier rates may apply'},
+    in:{pro:'000-800-440-1938', premium:'000-800-440-1938',note:'Carrier rates may apply',premNote:'Carrier rates may apply'},
+    my:{pro:'1800-81-5083',     premium:'1800-81-5083',    note:'Carrier rates may apply',premNote:'Carrier rates may apply'},
+    id:{pro:'007-803-321-5527', premium:'007-803-321-5527',note:'Carrier rates may apply',premNote:'Carrier rates may apply'},
+    il:{pro:'1-800-945-503',    premium:'1-800-945-503',   note:'Carrier rates may apply',premNote:'Carrier rates may apply'},
+    za:{pro:'0800-014-564',     premium:'0800-014-564',    note:'Carrier rates may apply',premNote:'Carrier rates may apply'},
+    ae:{pro:'8000 3570 4807',   premium:'8000 3570 4807',  note:'Carrier rates may apply',premNote:'Carrier rates may apply'}
+  };
+
+  const sel     = document.getElementById('country-select');
+  const proNum  = document.getElementById('pro-number');
+  const proNote = document.getElementById('pro-note');
+  const premNum = document.getElementById('premium-number');
+  const premNote= document.getElementById('premium-note');
+
+  function updateNumbers() {
+    const d = phones[sel.value]; if (!d) return;
+    if(proNum)  proNum.textContent  = d.pro;
+    if(proNote) proNote.textContent = d.note;
+    if(premNum) premNum.textContent = d.premium;
+    if(premNote)premNote.textContent= d.premNote;
+    // Mobile buttons
+    const mPro     = document.getElementById('pro-number-mob');
+    const mPrem    = document.getElementById('premium-number-mob');
+    const mProNote = document.getElementById('pro-note-mob');
+    const mPremNote= document.getElementById('premium-note-mob');
+    if(mPro)     mPro.textContent      = d.premium;
+    if(mPrem)    mPrem.textContent     = d.premium;
+    if(mProNote) mProNote.textContent  = d.note;
+    if(mPremNote)mPremNote.textContent = d.premNote;
+  }
+  sel.addEventListener('change', updateNumbers);
+  updateNumbers();
+
+  /* ── GLOBAL TOOLTIP ── */
+  const tip = document.createElement('div');
+  tip.id = 'global-tooltip';
+  document.body.appendChild(tip);
+
+  function showTip(text, el) { tip.textContent = text; tip.classList.add('visible'); posTip(el); }
+  function hideTip()          { tip.classList.remove('visible'); }
+  function posTip(el) {
+    const r = el.getBoundingClientRect();
+    tip.style.left = (r.left + r.width / 2) + 'px';
+    tip.style.top  = (r.top - 8) + 'px';
+    tip.style.transform = 'translateX(-50%) translateY(-100%)';
+  }
+  document.querySelectorAll('.has-tooltip').forEach(el => {
+    const label = el.dataset.tip;
+    el.addEventListener('mouseenter', () => showTip(label, el));
+    el.addEventListener('mousemove',  () => posTip(el));
+    el.addEventListener('mouseleave', hideTip);
+  });
+
+  /* ── TABLE COLUMN HOVER ── */
+  const colToCard = {'1':'card-free','2':'card-starter','3':'card-pro','4':'card-premium'};
+  function applyHover(col, on) {
+    const card = document.getElementById(colToCard[col]);
+    if (card) card.classList.toggle('is-highlighted', on);
+    document.querySelectorAll(
+      '.channel-table th[data-col="'+col+'"], '+
+      '.channel-table td:nth-child('+(parseInt(col,10)+1)+')'
+    ).forEach(el => el.classList.toggle('cell-hovered', on));
+  }
+  document.querySelectorAll('.channel-table th[data-col]').forEach(th => {
+    const col = th.getAttribute('data-col');
+    th.addEventListener('mouseenter', () => applyHover(col, true));
+    th.addEventListener('mouseleave', () => applyHover(col, false));
+  });
+  document.querySelectorAll('.channel-table tbody tr').forEach(row => {
+    row.querySelectorAll('td').forEach((td, i) => {
+      if (i === 0) return;
+      const col = String(i);
+      td.addEventListener('mouseenter', () => applyHover(col, true));
+      td.addEventListener('mouseleave', () => applyHover(col, false));
+    });
+  });
+
+  /* ── MODAL ── */
+  const overlay  = document.getElementById('proto-overlay');
+  const closeBtn = document.getElementById('proto-close');
+  function openModal(e) { e.preventDefault(); overlay.classList.add('open'); closeBtn.focus(); }
+  function closeModal()  { overlay.classList.remove('open'); }
+  document.querySelectorAll('a').forEach(el => el.addEventListener('click', openModal));
+  closeBtn.addEventListener('click', closeModal);
+  overlay.addEventListener('click', e => { if(e.target===overlay) closeModal(); });
+  document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
+</script>
+</body>
+</html>
